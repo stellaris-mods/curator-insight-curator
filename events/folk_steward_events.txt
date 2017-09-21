@@ -1,0 +1,134 @@
+namespace = "folk_steward"
+
+country_event = {
+	id = "folk_steward.1"
+	hide_window = yes
+
+	mean_time_to_happen = {
+		days = 7
+	}
+
+	trigger = {
+		is_country_type = "default"
+		is_ai = no
+		NOT = { has_country_flag = "folksteward_open" }
+		NOT = { has_country_flag = "folksteward_ignore" }
+		NOT = { has_country_flag = "ignore_insight_steward" }
+		NOT = { has_modifier = "curator_insight" }
+
+		NOT = { has_country_flag = "curator_enclave_diplomacy_engaged" }
+		NOT = { has_country_flag = "attacked_curators" }
+
+		any_country = {
+			is_country_type = "enclave"
+			has_country_flag = "curator_enclave_country"
+			has_established_contact = root
+		}
+		OR = {
+			AND = {
+				energy > 1000
+				num_pops < 61
+			}
+			AND = {
+				num_pops > 60
+				num_pops < 121
+				energy > 2000
+			}
+			AND = {
+				num_pops > 120
+				num_pops < 181
+				energy > 3000
+			}
+			AND = {
+				num_pops > 180
+				num_pops < 241
+				energy > 4000
+			}
+			AND = {
+				num_pops > 240
+				energy > 5000
+			}
+		}
+	}
+
+	immediate = {
+		set_timed_country_flag = {
+			flag = "ignore_insight_steward"
+			days = 30
+		}
+		random_country = {
+			limit = {
+				is_country_type = "enclave"
+				has_country_flag = "curator_enclave_country"
+				has_established_contact = root
+			}
+			random_owned_ship = {
+				limit = {
+					is_ship_size = enclave_station
+				}
+				solar_system = {
+					save_event_target_as = curator_location
+				}
+			}
+		}
+		country_event = {
+			id = "folk_steward.2"
+		}
+	}
+}
+
+country_event = {
+	id = "folk_steward.991"
+	title = OK
+	desc = "Steward reset"
+	picture = "GFX_evt_insight_steward"
+	is_triggered_only = yes
+
+	immediate = { remove_country_flag = "folksteward_ignore" }
+
+	option = {
+		name = OK
+	}
+}
+
+country_event = {
+	id = "folk_steward.2"
+	title = "folksteward.title"
+	desc = "folksteward.desc"
+	location = event_target:curator_location
+	is_triggered_only = yes
+	picture = "GFX_evt_insight_steward"
+
+	trigger = { NOT = { has_country_flag = "folksteward_open" } }
+	immediate = { set_country_flag = "folksteward_open" }
+	after = { remove_country_flag = "folksteward_open" }
+
+	option = {
+		name = "folksteward.button"
+	}
+	option = {
+		name = "folksteward.year"
+		hidden_effect = {
+			set_timed_country_flag = {
+				flag = "folksteward_ignore"
+				days = 360
+			}
+		}
+	}
+	option = {
+		name = "folksteward.five"
+		hidden_effect = {
+			set_timed_country_flag = {
+				flag = "folksteward_ignore"
+				days = 1800
+			}
+		}
+	}
+	option = {
+		name = "folksteward.disable"
+		custom_tooltip = "folksteward.disable.tooltip"
+		hidden_effect = {
+			set_country_flag = "folksteward_ignore"
+		}
+	}
+}

@@ -1,0 +1,9 @@
+﻿l_spanish:
+
+folksteward.title: "We could get a bonus!"
+folksteward.desc: "We are being hailed by our Insight Steward: §H\"[Root.GetRulerTitle], we have established contact with a Curator Enclave, and they could provide us with a huge bonus to our research output if we merely asked them!\"§!\n\nHe will not remind us again until next month.\n\n§MUse the location button in the top right to go to the Curator Enclave.§!"
+folksteward.button: "That's a good idea"
+folksteward.year: "§PDon't remind me for one year§!"
+folksteward.five: "§PDon't remind me for five years§!"
+folksteward.disable: "§RNever remind me again§!"
+folksteward.disable.tooltip: "Turns the addon off completely for this game, even across savegames."
